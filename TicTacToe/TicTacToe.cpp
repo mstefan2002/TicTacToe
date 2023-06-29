@@ -94,25 +94,26 @@ int CheckWin()
 
 void ReadCoord(int *x, int *y)
 {
-	scanf("%d %d", x, y);
-
-	while (0 >= x || 0 >= y || *x > 3 || *y > 3)
+	do
 	{
-		printf("\nTe rog sa scrii niste coordonate valide![ x: 1/2/3   y: 1/2/3 ]\n");
 		scanf("%d %d", x, y);
-	}
 
-	*x -= 1;
-	*y -= 1;
+		if(0 >= *x || 0 >= *y || *x > 3 || *y > 3)
+		{
+			printf("\nTe rog sa scrii niste coordonate valide![ x: 1/2/3   y: 1/2/3 ]\n");
+			continue;
+		}
 
-	while (v[*x][*y] != 0)
-	{
-		printf("\nTe rog scrie alte coordonate deoarece pozitia este ocupata!\n");
-		PrintTable();
-		scanf("%d %d", x, y);
 		*x -= 1;
 		*y -= 1;
-	}
+
+		if (v[*x][*y] != 0)
+		{
+			printf("\nTe rog scrie alte coordonate deoarece pozitia aleasa este ocupata!\n");
+			continue;
+		}
+		break;
+	} while (1 == 1);
 }
 
 void PvP(int whosTurn)
@@ -122,7 +123,7 @@ void PvP(int whosTurn)
 		return;
 
 	int x, y;
-	printf("Este randul lui %s, scrie te rog coord(x,y): \n", player[whosTurn]);
+	printf("Este randul lui %s, scrie te rog coord(x y)[ex: 1 1]: \n", player[whosTurn]);
 	ReadCoord(&x, &y);
 	v[x][y] = whosTurn + 1;
 
@@ -150,7 +151,7 @@ void PvAIEasy(int whosTurn)
 	if (whosTurn == 0)
 	{
 		int x, y;
-		printf("Scrie te rog coord(x,y): \n");
+		printf("Scrie te rog coord(x y)[ex: 1 1]: \n");
 		ReadCoord(&x, &y);
 		v[x][y] = 1;
 	}
@@ -175,7 +176,7 @@ void PvAIHard(int whosTurn)
 	if (whosTurn == 0)
 	{
 		int x, y;
-		printf("Scrie te rog coord(x,y): \n");
+		printf("Scrie te rog coord(x y)[ex: 1 1]: \n");
 		ReadCoord(&x, &y);
 		v[x][y] = 1;
 	}
